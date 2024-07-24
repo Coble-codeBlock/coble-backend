@@ -1,38 +1,35 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
 
   jpa:
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
-    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+  redis:
+    port: ${REDIS_PORT}
+    host: ${REDIS_HOST}
+
+  main:
+    allow-bean-definition-overriding: true
 
   jackson:
     property-naming-strategy: SNAKE_CASE
-
-  lifecycle:
-    timeout-per-shutdown-phase: 20s
+    serialization:
+      fail-on-empty-beans: false
 
 jwt:
-  header: ${HEADER}
-  prefix : ${PREFIX}
-  secret-key: ${JWT_SECRET}
-  access-exp: ${ACCESS_EXP}
-
-cloud:
-  aws:
-    credentials:
-    access-key: ${AWS_ACCESS_KEY}
-    secret-key: ${AWS_SECRET_KEY}
-  s3:
-    bucket: dsm-psbucket
-    url: ${BASE_URL}
-  region:
-    static: ap-northeast-2
-  stack:
-    auto: false
+  secret_key: ${JWT_SECRET_KEY}
+  access_exp: ${JWT_ACCESS_EXP}
+  refresh_exp: ${JWT_REFRESH_EXP}
+  header: ${JWT_HEADER}
+  prefix: ${JWT_PREFIX}

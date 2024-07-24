@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class CobleBackendApplication
 
 fun main(args: Array<String>) {
-    runApplication<CobleBackendApplication>(*args)
+	runApplication<CobleBackendApplication>(*args)
 }
