@@ -15,7 +15,7 @@ class EmailConfig(
     @Value("\${spring.mail.password}")
     private val googlePassword: String
 ) {
-    
+
     @Bean
     fun mailSender(): JavaMailSender {
         val mailSender = JavaMailSenderImpl().apply {
