@@ -4,6 +4,8 @@ enum class ErrorCode(
     val status: Int,
     val message: String,
 ) {
+    ALREADY_EMAIL_EXISTS(409, "Email already exists"),
+
     TOKEN_EXPIRED(401, "Token Expired"),
     TOKEN_INVALID(401, "Token Invalid"),
 
