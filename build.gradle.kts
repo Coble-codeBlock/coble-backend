@@ -37,6 +37,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	implementation("org.springframework:spring-context-support:5.3.9")
 }
 
 tasks.withType<KotlinCompile> {
