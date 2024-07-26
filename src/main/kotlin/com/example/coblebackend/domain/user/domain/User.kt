@@ -13,9 +13,9 @@ class User (
     id: Long,
 
     @field:NotNull
-    @field:Length(min = 4, max = 15)
+    @field:Length(min = 2, max = 20)
     @Column(nullable = false, unique = true)
-    var accountId: String,
+    val nickname: String,
 
     @field:NotNull
     @field:Length(max = 60)
