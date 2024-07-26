@@ -10,8 +10,6 @@ import javax.validation.constraints.Size
 
 @Entity(name = "tbl_user")
 class User (
-    id: Long,
-
     @field:NotNull
     @field:Length(min = 2, max = 20)
     @Column(nullable = false, unique = true)
@@ -26,5 +24,5 @@ class User (
     @field:Email
     @field:Size(max = 255)
     @Column(nullable = false, unique = true)
-    var email: String
+    val email: String
 ): BaseIdEntity()
