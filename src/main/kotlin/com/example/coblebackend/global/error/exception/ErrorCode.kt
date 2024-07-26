@@ -6,6 +6,7 @@ enum class ErrorCode(
 ) {
 
     ALREADY_EMAIL_EXISTS(409, "Email already exists"),
+    ALREADY_NICKNAME_EXISTS(409, "Nickname already exists"),
 
     TOKEN_EXPIRED(401, "Token Expired"),
     TOKEN_INVALID(401, "Token Invalid"),
