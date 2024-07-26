@@ -33,7 +33,7 @@ class VerifyEmailService(
         val title = "[Coble] 이메일 인증 코드"
         val content = "인증 번호는 " + verifyCode + "입니다."
 
-        mailUtil.mailSend(username, request.email, title, content)
+        mailUtil.mailSend(username, request.email, title, content, verifyCode)
     }
 
     private fun createVerifyCode(): String {
