@@ -36,9 +36,15 @@ spring:
       mail:
         smtp:
           auth: true
+          ssl:
+            protocols: TLSv1.3
           starttls:
             enable: true
             required: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
+
+jwt:
+  secret_key: ${JWT_SECRET_KEY}
+  access_exp: ${JWT_ACCESS_EXP}
+  refresh_exp: ${JWT_REFRESH_EXP}
+  header: ${JWT_HEADER}
+  prefix: ${JWT_PREFIX}
