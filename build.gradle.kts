@@ -26,22 +26,47 @@ repositories {
 }
 
 dependencies {
+	// jpa
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+	// validation
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	// web
 	implementation("org.springframework.boot:spring-boot-starter-web")
+
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.springframework:spring-context-support:5.3.9")
+
+	// security
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	testImplementation("org.springframework.security:spring-security-test")
+
+	// lombok
 	compileOnly("org.projectlombok:lombok")
-	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")
+
+	// mysql
+	runtimeOnly("com.mysql:mysql-connector-j")
+
+	// test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.security:spring-security-test")
+
+	// junit
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-	implementation("org.springframework:spring-context-support:5.3.9")
-	implementation("javax.mail:mail:1.4.7")
+
+	// mail
+	implementation("org.springframework.boot:spring-boot-starter-mail")
+
+	// redis
 	implementation ("org.springframework.boot:spring-boot-starter-data-redis")
+
+	// jwt
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 }
 
 tasks.withType<KotlinCompile> {
@@ -54,6 +79,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
 
 allOpen {
 	annotation("javax.persistence.Entity")
