@@ -23,7 +23,7 @@ class ExceptionFilter(
         filterChain: FilterChain
     ) {
         try {
-            filterChain.doFilter(request, response)
+                                                                                                                                                                                                                                                                                                             filterChain.doFilter(request, response)
         } catch (exception: Exception) {
             exception.printStackTrace()
             when (exception) {

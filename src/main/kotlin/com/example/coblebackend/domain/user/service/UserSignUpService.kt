@@ -2,7 +2,7 @@ package com.example.coblebackend.domain.user.service
 
 import com.example.coblebackend.domain.user.domain.User
 import com.example.coblebackend.domain.user.domain.repository.UserRepository
-import com.example.coblebackend.domain.user.exception.AlreadyEmailExistsException
+import com.example.coblebackend.domain.user.exception.AlreadyUserExistsException
 import com.example.coblebackend.domain.user.facade.UserFacade
 import com.example.coblebackend.domain.user.presentation.dto.request.UserSignUpRequest
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -18,8 +18,8 @@ class UserSignUpService(
 
     @Transactional
     fun execute(request: UserSignUpRequest) {
-        if(userFacade.checkUserExistsNickname(request.nickname))
-            throw AlreadyEmailExistsException
+        if(userFacade.checkUserByNicknameOrEmail(request.nickname, request.email))
+            throw AlreadyUserExistsException
 
         userRepository.save(
             User(

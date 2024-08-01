@@ -10,7 +10,6 @@ import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.apache.coyote.http11.Constants.a
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
@@ -18,7 +17,6 @@ import org.springframework.util.StringUtils
 import java.time.LocalDateTime
 import java.util.*
 import javax.servlet.http.HttpServletRequest
-
 
 @Component
 class JwtTokenProvider(
@@ -33,8 +31,8 @@ class JwtTokenProvider(
         val refreshExp = LocalDateTime.now().withNano(0).plusSeconds(jwtProperties.refreshExp)
 
         return TokenResponse(
-            accessToken = accessToken, refreshToken = refreshToken,
-            accessExp = accessExp, refreshExp = refreshExp,
+            accessToken = accessToken, accessExp = accessExp,
+            refreshToken = refreshToken, refreshExp = refreshExp,
         )
     }
 
@@ -94,7 +92,7 @@ class JwtTokenProvider(
         return if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.prefix)
             && bearerToken.length > jwtProperties.prefix.length + 1
         ) {
-            bearerToken.substring(jwtProperties.prefix.length)
+            bearerToken.substring(jwtProperties.prefix.length + 1)
         } else null
     }
 }

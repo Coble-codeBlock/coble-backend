@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface RefreshTokenRepository : CrudRepository<RefreshToken, String> {
 
-    fun findByToken(refreshToken: String): RefreshToken
+    fun findByToken(refreshToken: String): RefreshToken?
 }

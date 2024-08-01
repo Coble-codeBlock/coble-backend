@@ -1,6 +1,6 @@
 package com.example.coblebackend.domain.user.service
 
-import com.example.coblebackend.domain.user.exception.AlreadyEmailExistsException
+import com.example.coblebackend.domain.user.exception.AlreadyUserExistsException
 import com.example.coblebackend.domain.user.facade.UserFacade
 import com.example.coblebackend.domain.user.presentation.dto.request.VerifyEmailRequest
 import com.example.coblebackend.global.utils.MailUtil
@@ -13,20 +13,17 @@ import java.util.*
 @Service
 class VerifyEmailService(
     private val userFacade: UserFacade,
-    private val javaMailSender: JavaMailSender,
     private val mailUtil: MailUtil,
 
     @Value("\${spring.mail.username")
     private val username: String,
-    @Value("\${spring.mail.password")
-    private val password: String
 ) {
 
     @Transactional
     fun execute(request: VerifyEmailRequest) {
         val checkExistsEmail = userFacade.checkUserExistsEmail(request.email)
         if(checkExistsEmail)
-            throw AlreadyEmailExistsException
+            throw AlreadyUserExistsException
 
         val verifyCode = createVerifyCode()
 
