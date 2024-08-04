@@ -35,6 +35,7 @@ dependencies {
 	// web
 	implementation("org.springframework.boot:spring-boot-starter-web")
 
+	// starter
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework:spring-context-support:5.3.9")
