@@ -5,10 +5,12 @@ import org.hibernate.validator.constraints.Length
 import org.jetbrains.annotations.NotNull
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.Table
 import javax.validation.constraints.Email
 import javax.validation.constraints.Size
 
-@Entity(name = "tbl_user")
+@Table(name = "tbl_user")
+@Entity
 class User (
     @field:NotNull
     @field:Length(min = 2, max = 20)
