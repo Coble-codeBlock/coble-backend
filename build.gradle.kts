@@ -68,6 +68,13 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
+	// xml
+	implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+
+	// s3
+	implementation ("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+	implementation("com.amazonaws:aws-java-sdk-s3:1.12.174")
 }
 
 tasks.withType<KotlinCompile> {
