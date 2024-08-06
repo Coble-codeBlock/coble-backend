@@ -5,6 +5,8 @@ enum class ErrorCode(
     val message: String,
 ) {
     PASSWORD_MISMATCHED(400, "Password Mis Matched"),
+    FILE_IS_EMPTY(400, "File is Empty"),
+    FILE_SAVE_FAILED(400, "File Save Failed"),
 
     TOKEN_EXPIRED(401, "Token Expired"),
     TOKEN_INVALID(401, "Token Invalid"),
