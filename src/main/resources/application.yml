@@ -48,3 +48,16 @@ jwt:
   refresh_exp: ${JWT_REFRESH_EXP}
   header: ${JWT_HEADER}
   prefix: ${JWT_PREFIX}
+
+cloud:
+  aws:
+    credentials:
+    access_key: ${AWS_ACCESS_KEY}
+    secret_key: ${AWS_SECRET_KEY}
+  s3:
+    bucket: ${AWS_BUCKET}
+    url: ${BASE_URL}
+  region:
+    static: ${REGION}
+  stack:
+    auto: false
