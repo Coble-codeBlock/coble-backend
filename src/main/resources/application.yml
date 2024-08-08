@@ -51,13 +51,11 @@ jwt:
 
 cloud:
   aws:
-    credentials:
     access_key: ${AWS_ACCESS_KEY}
     secret_key: ${AWS_SECRET_KEY}
-  s3:
     bucket: ${AWS_BUCKET}
     url: ${BASE_URL}
-  region:
-    static: ${REGION}
-  stack:
-    auto: false
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
