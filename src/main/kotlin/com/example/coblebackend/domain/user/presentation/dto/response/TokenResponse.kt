@@ -7,4 +7,5 @@ data class TokenResponse(
     val accessExp: LocalDateTime,
     val refreshToken: String,
     val refreshExp: LocalDateTime,
+    val nickname: String,
 )

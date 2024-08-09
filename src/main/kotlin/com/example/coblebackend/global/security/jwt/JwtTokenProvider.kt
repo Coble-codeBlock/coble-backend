@@ -24,7 +24,7 @@ class JwtTokenProvider(
     private val authDetailsService: AuthDetailsService,
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
-    fun getToken(email: String): TokenResponse {
+    fun getToken(email: String, nickname: String): TokenResponse {
         val accessToken: String = generateAccessToken(email)
         val refreshToken: String = generateRefreshToken(email)
         val accessExp = LocalDateTime.now().withNano(0).plusSeconds(jwtProperties.accessExp)
@@ -33,6 +33,7 @@ class JwtTokenProvider(
         return TokenResponse(
             accessToken = accessToken, accessExp = accessExp,
             refreshToken = refreshToken, refreshExp = refreshExp,
+            nickname = nickname,
         )
     }
 
