@@ -37,7 +37,7 @@ class VerifyEmailService(
         val randomNumber = Random()
         var code = ""
 
-        for (i in 0 until 6) {
+        for (i in 0 until 4) {
             code += randomNumber.nextInt(10).toString()
         }
 
