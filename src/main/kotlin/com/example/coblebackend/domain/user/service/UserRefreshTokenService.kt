@@ -24,13 +24,14 @@ class UserRefreshTokenService(
         }
 
         val user = userFacade.getCurrentUser()
-        val token = refreshTokenRepository.findByToken(tokenSub) ?: throw UserNotFoundException
-        val tokenResponse = jwtTokenProvider.getToken(user.email)
-        token.updateToken(tokenResponse.refreshToken)
-        refreshTokenRepository.save(token)
+        val refreshToken = refreshTokenRepository.findByToken(tokenSub) ?: throw UserNotFoundException
+        val token = jwtTokenProvider.getToken(user.email, user.nickname)
+        refreshToken.updateToken(token.refreshToken)
+        refreshTokenRepository.save(refreshToken)
         return TokenResponse(
-            tokenResponse.accessToken, tokenResponse.accessExp,
-            tokenResponse.refreshToken, tokenResponse.refreshExp,
+            token.accessToken, token.accessExp,
+            token.refreshToken, token.refreshExp,
+            token.nickname,
         )
     }
 }
