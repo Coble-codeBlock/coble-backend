@@ -13,8 +13,10 @@ enum class ErrorCode(
     VERIFY_CODE_INVALID(401, "Verify Code Invalid"),
 
     USER_NOT_FOUND(404, "User not found"),
+    PROJECT_NOT_FOUND(404, "Project not found"),
 
     ALREADY_USER_EXISTS(409, "User already exists"),
+    NOT_WRITER_USER(409, "Not writer user."),
 
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 }
