@@ -19,6 +19,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build -x test --info
+        run: ./gradlew build -x test --info # test 빌드 제거 수정 필요
       - name: check gradle
         run: ./gradlew check
