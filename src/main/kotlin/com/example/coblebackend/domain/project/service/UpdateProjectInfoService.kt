@@ -6,6 +6,7 @@ import com.example.coblebackend.domain.project.presentation.dto.request.WritePro
 import com.example.coblebackend.domain.user.facade.UserFacade
 import com.example.coblebackend.global.utils.S3Util
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UpdateProjectInfoService(
@@ -15,6 +16,7 @@ class UpdateProjectInfoService(
     private val s3Util: S3Util,
 ) {
 
+    @Transactional
     fun execute(projectId: Long, request: WriteProjectInfoRequest) {
         val user = userFacade.getCurrentUser()
         val project = projectFacade.getProjectById(projectId)

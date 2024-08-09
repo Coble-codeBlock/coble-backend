@@ -5,6 +5,7 @@ import com.example.coblebackend.domain.project.facade.ProjectFacade
 import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectInfoResponse
 import com.example.coblebackend.domain.user.facade.UserFacade
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class GetProjectInfoService(
@@ -12,6 +13,7 @@ class GetProjectInfoService(
     private val userFacade: UserFacade,
 ) {
 
+    @Transactional(readOnly = true)
     fun execute(projectId: Long): GetProjectInfoResponse {
         val user = userFacade.getCurrentUser()
         val project = projectFacade.getProjectById(projectId)
