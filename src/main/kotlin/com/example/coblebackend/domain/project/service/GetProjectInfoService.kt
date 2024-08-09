@@ -16,10 +16,10 @@ class GetProjectInfoService(
         val user = userFacade.getCurrentUser()
         val project = projectFacade.getProjectById(projectId)
 
-        val checkCreateUser = project.user.id != (user.id)
-        if(checkCreateUser) {
-            throw NotWriterUserException
-        }
+        projectFacade.checkProjectCreateUser(
+            createUserId = project.user.id,
+            requestUserId = user.id,
+        )
 
         return GetProjectInfoResponse(
             id = project.id,

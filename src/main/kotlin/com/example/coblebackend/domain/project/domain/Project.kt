@@ -13,17 +13,24 @@ import javax.persistence.Table
 @Entity
 class Project(
 
-    val image: String,
+    var image: String,
 
     @Column(columnDefinition = "VARCHAR(30)", nullable = false)
-    val title: String,
+    var title: String,
 
     @Column(columnDefinition = "VARCHAR(100)")
-    val description: String,
+    var description: String,
 
-    val codeFile: String,
+    var codeFile: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
-): BaseIdEntity()
+): BaseIdEntity() {
+
+    fun updateProjectInfo(image: String, title: String, description: String) {
+        this.image = image
+        this.title = title
+        this.description = description
+    }
+}
