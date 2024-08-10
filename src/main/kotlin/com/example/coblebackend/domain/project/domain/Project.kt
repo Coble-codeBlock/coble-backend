@@ -33,4 +33,8 @@ class Project(
         this.title = title
         this.description = description
     }
+
+    fun updateCodeFile(codeFile: String) {
+        this.codeFile = codeFile
+    }
 }

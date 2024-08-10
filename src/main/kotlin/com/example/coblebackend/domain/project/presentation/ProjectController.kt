@@ -1,9 +1,11 @@
 package com.example.coblebackend.domain.project.presentation
 
 import com.example.coblebackend.domain.project.domain.Project
+import com.example.coblebackend.domain.project.presentation.dto.request.SaveProjectCodeFileRequest
 import com.example.coblebackend.domain.project.presentation.dto.request.WriteProjectInfoRequest
 import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectInfoResponse
 import com.example.coblebackend.domain.project.service.GetProjectInfoService
+import com.example.coblebackend.domain.project.service.SaveProjectCodeFileService
 import com.example.coblebackend.domain.project.service.UpdateProjectInfoService
 import com.example.coblebackend.domain.project.service.WriteProjectInfoService
 import org.springframework.http.HttpStatus
@@ -23,6 +25,7 @@ class ProjectController(
     private val writeProjectInfoService: WriteProjectInfoService,
     private val getProjectInfoService: GetProjectInfoService,
     private val updateProjectInfoService: UpdateProjectInfoService,
+    private val saveProjectCodeFileService: SaveProjectCodeFileService,
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -44,5 +47,14 @@ class ProjectController(
         @RequestBody request: WriteProjectInfoRequest,
     ) {
         updateProjectInfoService.execute(projectId, request)
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/codefile/{project-id}")
+    fun saveProjectCodeFile(
+        @PathVariable(name = "project-id") projectId: Long,
+        @RequestBody request: SaveProjectCodeFileRequest,
+    ) {
+        saveProjectCodeFileService.execute(projectId, request)
     }
 }
