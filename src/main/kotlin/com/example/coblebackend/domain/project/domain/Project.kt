@@ -26,6 +26,8 @@ class Project(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
+
+    val isOpen: Boolean,
 ): BaseIdEntity() {
 
     fun updateProjectInfo(image: String, title: String, description: String) {
