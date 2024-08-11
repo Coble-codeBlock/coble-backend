@@ -1,6 +1,5 @@
 package com.example.coblebackend.domain.project.service
 
-import com.example.coblebackend.domain.project.domain.repository.ProjectRepository
 import com.example.coblebackend.domain.project.facade.ProjectFacade
 import com.example.coblebackend.domain.project.presentation.dto.request.WriteProjectInfoRequest
 import com.example.coblebackend.domain.user.facade.UserFacade
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UpdateProjectInfoService(
-    private val projectRepository: ProjectRepository,
     private val projectFacade: ProjectFacade,
     private val userFacade: UserFacade,
     private val s3Util: S3Util,
