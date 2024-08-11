@@ -11,6 +11,7 @@ import com.example.coblebackend.domain.project.service.WriteProjectInfoService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 
 @RequestMapping("/projects")
 @RestController
@@ -44,7 +46,7 @@ class ProjectController(
     @PatchMapping("/{project-id}")
     fun updateProjectInfo(
         @PathVariable(name = "project-id") projectId: Long,
-        @RequestBody request: WriteProjectInfoRequest,
+        @ModelAttribute request: WriteProjectInfoRequest,
     ) {
         updateProjectInfoService.execute(projectId, request)
     }
@@ -53,8 +55,8 @@ class ProjectController(
     @PatchMapping("/codefile/{project-id}")
     fun saveProjectCodeFile(
         @PathVariable(name = "project-id") projectId: Long,
-        @RequestBody request: SaveProjectCodeFileRequest,
+        codeFile: MultipartFile,
     ) {
-        saveProjectCodeFileService.execute(projectId, request)
+        saveProjectCodeFileService.execute(projectId, codeFile)
     }
 }
