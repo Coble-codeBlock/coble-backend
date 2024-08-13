@@ -32,7 +32,7 @@ class ProjectController(
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    fun writeProject(@RequestBody request: WriteProjectInfoRequest): Long {
+    fun writeProject(@ModelAttribute request: WriteProjectInfoRequest): Long {
         return writeProjectInfoService.execute(request)
     }
 
