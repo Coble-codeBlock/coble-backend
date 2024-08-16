@@ -27,7 +27,7 @@ class Project(
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
 
-    val isOpen: Boolean,
+    var isShare: Boolean,
 ): BaseIdEntity() {
 
     fun updateProjectInfo(image: String, title: String, description: String) {
@@ -38,5 +38,9 @@ class Project(
 
     fun updateCodeFile(codeFile: String) {
         this.codeFile = codeFile
+    }
+
+    fun updateShareStatus(isShare: Boolean) {
+        this.isShare = isShare
     }
 }
