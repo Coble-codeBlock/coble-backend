@@ -2,14 +2,15 @@ package com.example.coblebackend.domain.project.presentation
 
 import com.example.coblebackend.domain.project.domain.Project
 import com.example.coblebackend.domain.project.presentation.dto.request.SaveProjectCodeFileRequest
+import com.example.coblebackend.domain.project.presentation.dto.request.UpdateProjectShareRequest
 import com.example.coblebackend.domain.project.presentation.dto.request.WriteProjectInfoRequest
 import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectInfoResponse
 import com.example.coblebackend.domain.project.service.GetProjectInfoService
 import com.example.coblebackend.domain.project.service.SaveProjectCodeFileService
 import com.example.coblebackend.domain.project.service.UpdateProjectInfoService
+import com.example.coblebackend.domain.project.service.UpdateProjectShareService
 import com.example.coblebackend.domain.project.service.WriteProjectInfoService
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PatchMapping
@@ -28,6 +29,7 @@ class ProjectController(
     private val getProjectInfoService: GetProjectInfoService,
     private val updateProjectInfoService: UpdateProjectInfoService,
     private val saveProjectCodeFileService: SaveProjectCodeFileService,
+    private val updateProjectShareService: UpdateProjectShareService,
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,5 +60,11 @@ class ProjectController(
         codeFile: MultipartFile,
     ) {
         saveProjectCodeFileService.execute(projectId, codeFile)
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/share")
+    fun updateProjectShare(@RequestBody request: UpdateProjectShareRequest) {
+        updateProjectShareService.execute(request)
     }
 }

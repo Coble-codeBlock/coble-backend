@@ -26,7 +26,7 @@ class WriteProjectInfoService(
             description = request.description,
             codeFile = "",
             user = user,
-            isOpen = false,
+            isShare = false,
         ))
 
         return project.id;
