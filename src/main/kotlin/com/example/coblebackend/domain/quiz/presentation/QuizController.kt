@@ -1,11 +1,8 @@
 package com.example.coblebackend.domain.quiz.presentation
 
-import com.example.coblebackend.domain.quiz.domain.Quiz
-import com.example.coblebackend.domain.quiz.domain.QuizStatus
 import com.example.coblebackend.domain.quiz.domain.QuizType
 import com.example.coblebackend.domain.quiz.presentation.dto.response.GetQuizListResponse
 import com.example.coblebackend.domain.quiz.service.GetQuizListService
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

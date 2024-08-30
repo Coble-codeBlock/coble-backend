@@ -21,7 +21,7 @@ class GetQuizListService(
     ): GetQuizListResponse {
         val user = userFacade.getCurrentUser()
 
-        val filterQuizList = customQuizRepository.getFilteredQuiz(user.id, type, pageable)
+        val filterQuizList = customQuizRepository.getFilterQuizList(user.id, type, pageable)
 
         val quizList = filterQuizList.content.map { quiz ->
             QuizListElement(
