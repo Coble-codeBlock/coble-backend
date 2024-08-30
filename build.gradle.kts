@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
+	kotlin("kapt") version "1.6.21"
 }
 
 group = "com.example"
@@ -75,6 +76,11 @@ dependencies {
 	// s3
 	implementation ("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 	implementation("com.amazonaws:aws-java-sdk-s3:1.12.261")
+
+	// queryDsl
+	implementation("com.querydsl:querydsl-jpa:5.0.0")
+	kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+	kapt("javax.persistence:javax.persistence-api:2.2")
 }
 
 tasks.withType<KotlinCompile> {
@@ -109,5 +115,12 @@ configurations {
 	create("myConfiguration") {
 		isCanBeResolved = true
 		isCanBeConsumed = false
+	}
+}
+
+kapt {
+	arguments {
+		arg("querydsl.entityAccessors", "true")
+		arg("querydsl.useKotlinSerialization", "false")
 	}
 }
