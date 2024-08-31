@@ -12,13 +12,17 @@ enum class ErrorCode(
     TOKEN_INVALID(401, "Token Invalid"),
     VERIFY_CODE_INVALID(401, "Verify Code Invalid"),
 
+    SELF_PROJECT_LIKE_NOT_ALLOWED(403, "Self project like not allowed"),
+
     USER_NOT_FOUND(404, "User not found"),
     PROJECT_NOT_FOUND(404, "Project not found"),
-    QUIZ_TITLE_NOT_FOUND(404, "Quiz Title Not Found"),
-    ANSWER_NOT_FOUND(404, "Answer Not Found"),
+    QUIZ_TITLE_NOT_FOUND(404, "Quiz Title not found"),
+    ANSWER_NOT_FOUND(404, "Answer not found"),
+    LIKE_NOT_FOUND(404, "Like not found"),
 
     ALREADY_USER_EXISTS(409, "User already exists"),
     NOT_WRITER_USER(409, "Not writer user."),
+    USER_ALREADY_PROJECT_LIKE(409, "User already project like"),
 
-    INTERNAL_SERVER_ERROR(500, "Internal Server Error");
+    INTERNAL_SERVER_ERROR(500, "Internal server error");
 }
