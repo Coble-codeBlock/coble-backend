@@ -36,7 +36,7 @@ class S3Util(
     }
 
     fun delete(objectName: String, path: String) {
-        amazonS3Client!!.deleteObject(s3Properties.bucket, objectName + path)
+        amazonS3Client.deleteObject(s3Properties.bucket, objectName + path)
     }
 
     private fun verificationFile(file: MultipartFile): String {
@@ -49,7 +49,7 @@ class S3Util(
     @Throws(IOException::class)
     private fun saveImage(file: MultipartFile, extension: String): String {
         val filePath = UUID.randomUUID().toString() + extension
-        amazonS3Client!!.putObject(
+        amazonS3Client.putObject(
             PutObjectRequest(s3Properties.bucket, filePath, file.inputStream, null)
                 .withCannedAcl(CannedAccessControlList.PublicRead)
         )

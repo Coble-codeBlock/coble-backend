@@ -13,7 +13,7 @@ class AttachmentUploadService(
 ) {
 
     @Transactional
-    fun execute(image: MultipartFile?): UploadAttachmentResponse {
-        return UploadAttachmentResponse(s3Util!!.uploadImage(image!!))
+    fun execute(image: MultipartFile): UploadAttachmentResponse {
+        return UploadAttachmentResponse(s3Util.uploadImage(image))
     }
 }
