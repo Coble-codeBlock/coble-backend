@@ -14,6 +14,8 @@ enum class ErrorCode(
 
     USER_NOT_FOUND(404, "User not found"),
     PROJECT_NOT_FOUND(404, "Project not found"),
+    QUIZ_TITLE_NOT_FOUND(404, "Quiz Title Not Found"),
+    ANSWER_NOT_FOUND(404, "Answer Not Found"),
 
     ALREADY_USER_EXISTS(409, "User already exists"),
     NOT_WRITER_USER(409, "Not writer user."),

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface QuizTitleRepository: JpaRepository<QuizTitle, Long> {
+    fun findQuizTitleById(quizId: Long): QuizTitle?
 }
