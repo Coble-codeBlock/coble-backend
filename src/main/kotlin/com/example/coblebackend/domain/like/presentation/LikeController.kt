@@ -21,6 +21,6 @@ class LikeController(
         @PathVariable(name = "project-id") projectId: Long,
         @RequestParam(name = "like") likeStatus: Boolean,
     ) {
-        projectLikeService.projectLike(projectId, likeStatus)
+        projectLikeService.execute(projectId, likeStatus)
     }
 }

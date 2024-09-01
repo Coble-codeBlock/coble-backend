@@ -30,14 +30,14 @@ class QuizController(
         @RequestParam(required = false) type: QuizType?,
         pageable: Pageable
     ): GetQuizListResponse {
-        return getQuizListService.getQuizList(status, type, pageable)
+        return getQuizListService.execute(status, type, pageable)
     }
 
     @GetMapping("/answer/{quiz-title-id}")
     fun getQuizAnswerList(
         @PathVariable(name = "quiz-title-id") quizTitleId: Long,
     ): GetQuizAnswerListResponse {
-        return getQuizAnswerListService.getQuizAnswerList(quizTitleId)
+        return getQuizAnswerListService.execute(quizTitleId)
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -45,6 +45,6 @@ class QuizController(
     fun quizSolve(
         @PathVariable(name = "quiz-title-id") quizTitleId: Long,
     ) {
-        quizSolveService.quizSolve(quizTitleId)
+        quizSolveService.execute(quizTitleId)
     }
 }

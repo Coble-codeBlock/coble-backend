@@ -13,7 +13,7 @@ class GetQuizAnswerListService(
 ) {
 
     @Transactional(readOnly = true)
-    fun getQuizAnswerList(quizTitleId: Long): GetQuizAnswerListResponse {
+    fun execute(quizTitleId: Long): GetQuizAnswerListResponse {
         val quizTitle = quizTitleFacade.getQuizTitleByQuizId(quizTitleId)
 
         val quizAnswerElementList = customQuizRepository.getQuizAnswerList(quizTitleId)

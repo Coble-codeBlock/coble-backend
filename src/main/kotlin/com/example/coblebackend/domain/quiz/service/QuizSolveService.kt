@@ -1,6 +1,5 @@
 package com.example.coblebackend.domain.quiz.service
 
-import com.example.coblebackend.domain.quiz.domain.QQuizTitle.quizTitle
 import com.example.coblebackend.domain.quiz.domain.UserAnswer
 import com.example.coblebackend.domain.quiz.domain.repository.UserAnswerRepository
 import com.example.coblebackend.domain.quiz.facade.QuizTitleFacade
@@ -16,7 +15,7 @@ class QuizSolveService(
 ) {
 
     @Transactional
-    fun quizSolve(quizTitleId: Long) {
+    fun execute(quizTitleId: Long) {
         val quizTitle = quizTitleFacade.getQuizTitleByQuizId(quizTitleId)
         val user = userFacade.getCurrentUser()
 

@@ -19,7 +19,7 @@ class ProjectLikeService(
 ) {
 
     @Transactional
-    fun projectLike(projectId: Long, likeStatus: Boolean) {
+    fun execute(projectId: Long, likeStatus: Boolean) {
         val project = projectFacade.getProjectById(projectId)
         val user = userFacade.getCurrentUser()
 

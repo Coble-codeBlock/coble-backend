@@ -14,7 +14,7 @@ class GetQuizListService(
     private val userFacade: UserFacade,
 ) {
 
-    fun getQuizList(
+    fun execute(
         status: Boolean,
         type: QuizType?,
         pageable: Pageable
