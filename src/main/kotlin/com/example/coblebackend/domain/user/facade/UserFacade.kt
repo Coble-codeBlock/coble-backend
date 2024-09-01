@@ -11,6 +11,10 @@ class UserFacade(
     private val userRepository: UserRepository
 ) {
 
+    fun getUserById(userId: Long): User {
+        return userRepository.findById(userId).orElseThrow{UserNotFoundException}
+    }
+
     fun getCurrentUser(): User {
         val email: String = SecurityContextHolder.getContext().authentication.name
         return getUserByEmail(email)

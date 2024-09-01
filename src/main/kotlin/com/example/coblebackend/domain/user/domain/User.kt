@@ -1,6 +1,7 @@
 package com.example.coblebackend.domain.user.domain
 
 import com.example.coblebackend.global.entity.BaseIdEntity
+import org.hibernate.annotations.ColumnDefault
 import org.hibernate.validator.constraints.Length
 import org.jetbrains.annotations.NotNull
 import javax.persistence.Column
@@ -26,5 +27,10 @@ class User (
     @field:Email
     @field:Size(max = 255)
     @Column(nullable = false, unique = true)
-    val email: String
+    val email: String,
+
+    @field:NotNull
+    @ColumnDefault(value = "")
+    @Column(nullable = false)
+    val profile: String,
 ): BaseIdEntity()
