@@ -4,6 +4,7 @@ import com.example.coblebackend.domain.project.domain.Project
 import com.example.coblebackend.domain.project.presentation.dto.request.SaveProjectCodeFileRequest
 import com.example.coblebackend.domain.project.presentation.dto.request.UpdateProjectShareRequest
 import com.example.coblebackend.domain.project.presentation.dto.request.WriteProjectInfoRequest
+import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectDetailResponse
 import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectInfoResponse
 import com.example.coblebackend.domain.project.service.GetProjectDetailService
 import com.example.coblebackend.domain.project.service.GetProjectInfoService
@@ -80,7 +81,7 @@ class ProjectController(
     @GetMapping("/{project-id}")
     fun getProjectDetail(
         @PathVariable(name = "project-id") projectId: Long,
-    ) {
-        getProjectDetailService.execute(projectId)
+    ): GetProjectDetailResponse {
+        return getProjectDetailService.execute(projectId)
     }
 }
