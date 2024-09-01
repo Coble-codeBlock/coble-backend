@@ -5,6 +5,7 @@ import com.example.coblebackend.domain.project.presentation.dto.request.SaveProj
 import com.example.coblebackend.domain.project.presentation.dto.request.UpdateProjectShareRequest
 import com.example.coblebackend.domain.project.presentation.dto.request.WriteProjectInfoRequest
 import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectInfoResponse
+import com.example.coblebackend.domain.project.service.GetProjectDetailService
 import com.example.coblebackend.domain.project.service.GetProjectInfoService
 import com.example.coblebackend.domain.project.service.SaveProjectCodeFileService
 import com.example.coblebackend.domain.project.service.UpdateProjectInfoService
@@ -30,22 +31,27 @@ class ProjectController(
     private val updateProjectInfoService: UpdateProjectInfoService,
     private val saveProjectCodeFileService: SaveProjectCodeFileService,
     private val updateProjectShareService: UpdateProjectShareService,
+    private val getProjectDetailService: GetProjectDetailService,
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    fun writeProject(@ModelAttribute request: WriteProjectInfoRequest): Long {
+    fun writeProject(
+        @ModelAttribute request: WriteProjectInfoRequest
+    ): Long {
         return writeProjectInfoService.execute(request)
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{project-id}")
-    fun getProjectInfo(@PathVariable(name = "project-id") projectId: Long): GetProjectInfoResponse {
+    @GetMapping("/info/{project-id}")
+    fun getProjectInfo(
+        @PathVariable(name = "project-id") projectId: Long
+    ): GetProjectInfoResponse {
         return getProjectInfoService.execute(projectId)
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/{project-id}")
+    @PatchMapping("/info/update/{project-id}")
     fun updateProjectInfo(
         @PathVariable(name = "project-id") projectId: Long,
         @ModelAttribute request: WriteProjectInfoRequest,
@@ -64,7 +70,17 @@ class ProjectController(
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/share")
-    fun updateProjectShare(@RequestBody request: UpdateProjectShareRequest) {
+    fun updateProjectShare(
+        @RequestBody request: UpdateProjectShareRequest
+    ) {
         updateProjectShareService.execute(request)
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{project-id}")
+    fun getProjectDetail(
+        @PathVariable(name = "project-id") projectId: Long,
+    ) {
+        getProjectDetailService.execute(projectId)
     }
 }
