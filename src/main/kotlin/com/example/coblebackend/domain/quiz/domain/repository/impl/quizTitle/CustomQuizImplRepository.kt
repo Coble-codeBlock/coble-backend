@@ -30,37 +30,38 @@ class CustomQuizImplRepository(
         type: QuizType?,
         pageable: Pageable
     ): Page<QuizListElement> {
-        val qQuiz = QQuiz.quiz
+        val qQuizTitle = QQuizTitle.quizTitle
         val qUserAnswer = QUserAnswer.userAnswer
 
-        val filterQuizList = listOfNotNull(
-            filterByType(type, qQuiz),
-            filterByUserStatus(userId, qQuiz, qUserAnswer)
-        ).reduceOrNull { acc, next -> acc.and(next) } ?: qQuiz.isNotNull
+        val filterQuizTitleList = listOfNotNull(
+            filterByType(type, qQuizTitle),
+            filterByUserStatus(userId, qQuizTitle, qUserAnswer)
+        ).reduceOrNull { acc, next -> acc.and(next) } ?: qQuizTitle.isNotNull
 
-        val query = queryFactory.selectFrom(qQuiz)
-            .where(filterQuizList)
-            .orderBy(qQuiz.quizTitle().title.asc())
+        val totalCount = queryFactory.select(qQuizTitle.count())
+            .from(qQuizTitle)
+            .where(filterQuizTitleList)
+            .fetchOne() ?: 0L
+
+        val quizTitles = queryFactory.selectFrom(qQuizTitle)
+            .where(filterQuizTitleList)
+            .orderBy(qQuizTitle.title.asc())
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .fetch()
 
-        val totalCount = queryFactory.selectFrom(qQuiz)
-            .where(filterQuizList)
-            .fetchCount()
-
-        val quizList = query.map { quiz ->
+        val quizList = quizTitles.map { quizTitle ->
             QuizListElement(
-                id = quiz.quizTitle.id,
-                title = quiz.quizTitle.title,
-                quizStatus = userHasAnsweredQuiz(userId, quiz.quizTitle.id),
-                quizType = quiz.quizTitle.quizType
+                id = quizTitle.id,
+                title = quizTitle.title,
+                quizStatus = userHasAnsweredQuiz(userId, quizTitle.id),
+                quizType = quizTitle.quizType
             )
         }
 
         return PageImpl(quizList, pageable, totalCount)
     }
-
+    
     override fun getQuizAnswerList(quizTitleId: Long): List<GetQuizAnswerListElement> {
         val quizTitle = queryFactory.selectFrom(QQuizTitle.quizTitle)
             .where(QQuizTitle.quizTitle.id.eq(quizTitleId))
@@ -70,9 +71,7 @@ class CustomQuizImplRepository(
             .where(QQuiz.quiz.quizTitle().id.eq(quizTitle.id))
             .fetch()
 
-
-
-        return when(quizTitle.quizType) {
+        return when (quizTitle.quizType) {
             QuizType.OX -> {
                 quizList.map { quiz ->
                     buildQuizAnswerListElement(quiz, emptyList())
@@ -98,7 +97,7 @@ class CustomQuizImplRepository(
         }
     }
 
-    private fun buildQuizAnswerListElement(quiz: Quiz, choiceList: List<ChoiceListElement>): GetQuizAnswerListElement{
+    private fun buildQuizAnswerListElement(quiz: Quiz, choiceList: List<ChoiceListElement>): GetQuizAnswerListElement {
         val answer = queryFactory.selectFrom(QAnswer.answer)
             .where(QAnswer.answer.quiz().id.eq(quiz.id))
             .fetchOne() ?: throw AnswerNotFoundException
@@ -110,11 +109,14 @@ class CustomQuizImplRepository(
             choiceList = choiceList
         )
     }
-    private fun filterByType(type: QuizType?, qQuiz: QQuiz) =
-        type?.let { qQuiz.quizTitle().quizType.eq(it) }
 
-    private fun filterByUserStatus(userId: Long, qQuiz: QQuiz, qUserAnswer: QUserAnswer) =
-        qQuiz.id.notIn(
+    private fun filterByType(type: QuizType?, qQuizTitle: QQuizTitle) =
+        type?.let { qQuizTitle.quizType.eq(it) }
+
+
+
+    private fun filterByUserStatus(userId: Long, qQuizTitle: QQuizTitle, qUserAnswer: QUserAnswer) =
+        qQuizTitle.id.notIn(
             queryFactory.select(qUserAnswer.quizTitle().id)
                 .from(qUserAnswer)
                 .where(qUserAnswer.user().id.eq(userId))
@@ -131,3 +133,5 @@ class CustomQuizImplRepository(
             .fetchFirst() != null
     }
 }
+
+
