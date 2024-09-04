@@ -2,6 +2,10 @@ package com.example.coblebackend.domain.project.domain
 
 import com.example.coblebackend.domain.user.domain.User
 import com.example.coblebackend.global.entity.BaseIdEntity
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.format.annotation.DateTimeFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -28,6 +32,9 @@ class Project(
     val user: User,
 
     var isShare: Boolean,
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    val createDate: LocalDate,
 ): BaseIdEntity() {
 
     fun updateProjectInfo(image: String, title: String, description: String) {

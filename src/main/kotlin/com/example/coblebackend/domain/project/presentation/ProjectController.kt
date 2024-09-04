@@ -1,17 +1,18 @@
 package com.example.coblebackend.domain.project.presentation
 
-import com.example.coblebackend.domain.project.domain.Project
-import com.example.coblebackend.domain.project.presentation.dto.request.SaveProjectCodeFileRequest
 import com.example.coblebackend.domain.project.presentation.dto.request.UpdateProjectShareRequest
 import com.example.coblebackend.domain.project.presentation.dto.request.WriteProjectInfoRequest
 import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectDetailResponse
 import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectInfoResponse
+import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectListResponse
 import com.example.coblebackend.domain.project.service.GetProjectDetailService
 import com.example.coblebackend.domain.project.service.GetProjectInfoService
+import com.example.coblebackend.domain.project.service.GetProjectListService
 import com.example.coblebackend.domain.project.service.SaveProjectCodeFileService
 import com.example.coblebackend.domain.project.service.UpdateProjectInfoService
 import com.example.coblebackend.domain.project.service.UpdateProjectShareService
 import com.example.coblebackend.domain.project.service.WriteProjectInfoService
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -33,6 +34,7 @@ class ProjectController(
     private val saveProjectCodeFileService: SaveProjectCodeFileService,
     private val updateProjectShareService: UpdateProjectShareService,
     private val getProjectDetailService: GetProjectDetailService,
+    private val getProjectListService: GetProjectListService,
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -83,5 +85,13 @@ class ProjectController(
         @PathVariable(name = "project-id") projectId: Long,
     ): GetProjectDetailResponse {
         return getProjectDetailService.execute(projectId)
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/list")
+    fun getProjectList(
+        pageable: Pageable
+    ): GetProjectListResponse {
+        return getProjectListService.execute(pageable)
     }
 }

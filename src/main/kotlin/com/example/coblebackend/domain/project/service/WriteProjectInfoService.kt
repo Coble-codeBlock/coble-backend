@@ -1,12 +1,14 @@
 package com.example.coblebackend.domain.project.service
 
 import com.example.coblebackend.domain.project.domain.Project
+import com.example.coblebackend.domain.project.domain.QProject.project
 import com.example.coblebackend.domain.project.domain.repository.ProjectRepository
 import com.example.coblebackend.domain.project.presentation.dto.request.WriteProjectInfoRequest
 import com.example.coblebackend.domain.user.facade.UserFacade
 import com.example.coblebackend.global.utils.S3Util
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 
 @Service
 class WriteProjectInfoService(
@@ -27,6 +29,7 @@ class WriteProjectInfoService(
             codeFile = "",
             user = user,
             isShare = false,
+            createDate = LocalDate.now(),
         ))
 
         return project.id;

@@ -61,7 +61,7 @@ class CustomQuizImplRepository(
 
         return PageImpl(quizList, pageable, totalCount)
     }
-    
+
     override fun getQuizAnswerList(quizTitleId: Long): List<GetQuizAnswerListElement> {
         val quizTitle = queryFactory.selectFrom(QQuizTitle.quizTitle)
             .where(QQuizTitle.quizTitle.id.eq(quizTitleId))
