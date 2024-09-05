@@ -1,36 +1,32 @@
 package com.example.coblebackend.domain.project.service
 
+import com.example.coblebackend.domain.like.domain.repository.LikeRepository
+import com.example.coblebackend.domain.project.domain.repository.ProjectRepository
+import com.example.coblebackend.domain.project.exception.NotCreatorUserException
 import com.example.coblebackend.domain.project.facade.ProjectFacade
-import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectInfoResponse
 import com.example.coblebackend.domain.user.facade.UserFacade
-import com.example.coblebackend.global.utils.S3Util
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class GetProjectInfoService(
+class DeleteProjectService(
     private val projectFacade: ProjectFacade,
     private val userFacade: UserFacade,
-    private val s3Util: S3Util,
+    private val projectRepository: ProjectRepository,
+    private val likeRepository: LikeRepository,
 ) {
 
-    @Transactional(readOnly = true)
-    fun execute(projectId: Long): GetProjectInfoResponse {
-        val user = userFacade.getCurrentUser()
+    @Transactional
+    fun execute(projectId: Long) {
         val project = projectFacade.getProjectById(projectId)
+        val user = userFacade.getCurrentUser()
 
         projectFacade.checkProjectCreateUser(
             createUserId = project.user.id,
             requestUserId = user.id,
         )
 
-        val imageUrl = s3Util.getS3ObjectUrl(project.image)
-
-        return GetProjectInfoResponse(
-            id = project.id,
-            image = imageUrl,
-            title = project.title,
-            description = project.description,
-        )
+        likeRepository.deleteAllByProjectId(project.id)
+        projectRepository.deleteById(project.id)
     }
 }

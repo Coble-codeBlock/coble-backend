@@ -21,7 +21,7 @@ enum class ErrorCode(
     LIKE_NOT_FOUND(404, "Like not found"),
 
     ALREADY_USER_EXISTS(409, "User already exists"),
-    NOT_WRITER_USER(409, "Not writer user."),
+    NOT_CREATOR_USER(409, "Not creator user."),
     USER_ALREADY_PROJECT_LIKE(409, "User already project like"),
 
     INTERNAL_SERVER_ERROR(500, "Internal server error");
