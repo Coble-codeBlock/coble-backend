@@ -16,7 +16,7 @@ class User (
     @field:NotNull
     @field:Length(min = 2, max = 20)
     @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
-    val nickname: String,
+    var nickname: String,
 
     @field:NotNull
     @field:Length(max = 60)
@@ -32,5 +32,11 @@ class User (
     @field:NotNull
     @ColumnDefault(value = "")
     @Column(nullable = false)
-    val profile: String,
-): BaseIdEntity()
+    var profile: String,
+): BaseIdEntity() {
+
+    fun updateUserInfo(profile: String, nickname: String) {
+        this.profile = profile
+        this.nickname = nickname
+    }
+}
