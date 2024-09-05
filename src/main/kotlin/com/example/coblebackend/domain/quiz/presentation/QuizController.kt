@@ -26,7 +26,7 @@ class QuizController(
 
     @GetMapping("/list")
     fun getQuizList(
-        @RequestParam(required = false) status: Boolean,
+        @RequestParam(required = false) status: Boolean?,
         @RequestParam(required = false) type: QuizType?,
         pageable: Pageable
     ): GetQuizListResponse {

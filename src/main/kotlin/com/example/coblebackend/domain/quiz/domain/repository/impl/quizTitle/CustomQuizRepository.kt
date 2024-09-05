@@ -11,7 +11,8 @@ interface CustomQuizRepository {
     fun getFilterQuizList(
         userId: Long,
         type: QuizType?,
-        pageable: Pageable
+        solved: Boolean?,
+        pageable: Pageable,
     ): Page<QuizListElement>
 
     fun getQuizAnswerList(

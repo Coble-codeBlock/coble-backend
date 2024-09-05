@@ -14,6 +14,7 @@ import com.example.coblebackend.domain.quiz.exception.QuizTitleNotFoundException
 import com.example.coblebackend.domain.quiz.presentation.dto.response.ChoiceListElement
 import com.example.coblebackend.domain.quiz.presentation.dto.response.GetQuizAnswerListElement
 import com.example.coblebackend.domain.quiz.presentation.dto.response.QuizListElement
+import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -28,6 +29,7 @@ class CustomQuizImplRepository(
     override fun getFilterQuizList(
         userId: Long,
         type: QuizType?,
+        solveStatus: Boolean?,
         pageable: Pageable
     ): Page<QuizListElement> {
         val qQuizTitle = QQuizTitle.quizTitle
@@ -35,7 +37,7 @@ class CustomQuizImplRepository(
 
         val filterQuizTitleList = listOfNotNull(
             filterByType(type, qQuizTitle),
-            filterByUserStatus(userId, qQuizTitle, qUserAnswer)
+            filterByUserStatus(userId, qQuizTitle, qUserAnswer, solveStatus)
         ).reduceOrNull { acc, next -> acc.and(next) } ?: qQuizTitle.isNotNull
 
         val totalCount = queryFactory.select(qQuizTitle.count())
@@ -114,13 +116,23 @@ class CustomQuizImplRepository(
         type?.let { qQuizTitle.quizType.eq(it) }
 
 
-
-    private fun filterByUserStatus(userId: Long, qQuizTitle: QQuizTitle, qUserAnswer: QUserAnswer) =
-        qQuizTitle.id.notIn(
-            queryFactory.select(qUserAnswer.quizTitle().id)
-                .from(qUserAnswer)
-                .where(qUserAnswer.user().id.eq(userId))
-        )
+    private fun filterByUserStatus(userId: Long, qQuizTitle: QQuizTitle, qUserAnswer: QUserAnswer, solveStatus: Boolean?): BooleanExpression? {
+        return solveStatus?.let {
+            if (it) {
+                qQuizTitle.id.`in`(
+                    queryFactory.select(qUserAnswer.quizTitle().id)
+                        .from(qUserAnswer)
+                        .where(qUserAnswer.user().id.eq(userId))
+                )
+            } else {
+                qQuizTitle.id.notIn(
+                    queryFactory.select(qUserAnswer.quizTitle().id)
+                        .from(qUserAnswer)
+                        .where(qUserAnswer.user().id.eq(userId))
+                )
+            }
+        }
+    }
 
     private fun userHasAnsweredQuiz(userId: Long, quizTitleId: Long): Boolean {
         val qUserAnswer = QUserAnswer.userAnswer
@@ -133,5 +145,3 @@ class CustomQuizImplRepository(
             .fetchFirst() != null
     }
 }
-
-

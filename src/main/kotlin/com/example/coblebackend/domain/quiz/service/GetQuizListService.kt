@@ -1,7 +1,6 @@
 package com.example.coblebackend.domain.quiz.service
 
 import com.example.coblebackend.domain.quiz.domain.QuizType
-import com.example.coblebackend.domain.quiz.domain.repository.QuizRepository
 import com.example.coblebackend.domain.quiz.presentation.dto.response.GetQuizListResponse
 import com.example.coblebackend.domain.quiz.presentation.dto.response.QuizListElement
 import com.example.coblebackend.domain.quiz.domain.repository.impl.quizTitle.CustomQuizRepository
@@ -16,13 +15,13 @@ class GetQuizListService(
 ) {
 
     fun execute(
-        status: Boolean,
+        status: Boolean?,
         type: QuizType?,
         pageable: Pageable
     ): GetQuizListResponse {
         val user = userFacade.getCurrentUser()
 
-        val filterQuizList = customQuizRepository.getFilterQuizList(user.id, type, pageable)
+        val filterQuizList = customQuizRepository.getFilterQuizList(user.id, type, status, pageable)
 
         val quizList = filterQuizList.content.map { quiz ->
             QuizListElement(
