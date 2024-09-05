@@ -7,12 +7,14 @@ import com.example.coblebackend.domain.user.presentation.dto.request.VerifyEmail
 import com.example.coblebackend.domain.user.presentation.dto.response.TokenResponse
 import com.example.coblebackend.domain.user.presentation.dto.response.UserInfoResponse
 import com.example.coblebackend.domain.user.service.CheckVerifyEmailCodeService
+import com.example.coblebackend.domain.user.service.DeleteUserService
 import com.example.coblebackend.domain.user.service.GetUserInfoService
 import com.example.coblebackend.domain.user.service.UserRefreshTokenService
 import com.example.coblebackend.domain.user.service.UserSignInService
 import com.example.coblebackend.domain.user.service.UserSignUpService
 import com.example.coblebackend.domain.user.service.VerifyEmailService
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -32,6 +34,7 @@ class UserController(
     private val userSignInService: UserSignInService,
     private val userRefreshTokenService: UserRefreshTokenService,
     private val getUserInfoService: GetUserInfoService,
+    private val deleteUserService: DeleteUserService,
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -69,4 +72,10 @@ class UserController(
      fun getUserInfo(): UserInfoResponse {
          return getUserInfoService.execute()
      }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping
+    fun deleteUser() {
+        deleteUserService.execute()
+    }
 }

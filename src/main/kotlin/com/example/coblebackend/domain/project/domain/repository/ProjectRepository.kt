@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ProjectRepository: JpaRepository<Project, Long> {
-
-    override fun existsById(projectId: Long): Boolean
     fun findAllByUserId(userId: Long): List<Project>
+    fun deleteAllByUserId(userId: Long)
 }

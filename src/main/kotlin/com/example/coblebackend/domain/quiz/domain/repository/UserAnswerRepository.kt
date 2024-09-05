@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UserAnswerRepository: JpaRepository<UserAnswer, Long> {
+
+    fun deleteAllByUserId(userId: Long)
 }

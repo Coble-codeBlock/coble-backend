@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository
 interface LikeRepository: CrudRepository<Like, Long> {
     fun findByUserIdAndProjectId(userId: Long, projectId: Long): Like?
     fun existsByUserIdAndProjectId(userId: Long, projectId: Long): Boolean
+    fun deleteAllByUserId(userId: Long)
 }
