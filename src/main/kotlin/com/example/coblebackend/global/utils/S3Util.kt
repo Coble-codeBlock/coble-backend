@@ -32,8 +32,10 @@ class S3Util(
     }
 
     fun getS3ObjectUrl(path: String): String {
-        return s3Properties.url + path
+        val formattedPath = if (path.startsWith("/")) path.substring(1) else path
+        return "${s3Properties.url}/$formattedPath"
     }
+
 
     fun delete(objectName: String, path: String) {
         amazonS3Client.deleteObject(s3Properties.bucket, objectName + path)
@@ -54,6 +56,6 @@ class S3Util(
                 .withCannedAcl(CannedAccessControlList.PublicRead)
         )
 
-        return s3Properties.url + filePath
+        return filePath
     }
 }
