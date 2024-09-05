@@ -21,17 +21,26 @@ class SaveProjectCodeFileService(
         val project = projectFacade.getProjectById(projectId)
         val checkCodeFileExist = project.codeFile != null
 
+        println("1")
+
         projectFacade.checkProjectCreateUser(
             createUserId = project.user.id,
             requestUserId = user.id
         )
 
+        println("2")
+
         if(checkCodeFileExist) {
             s3Util.delete(project.codeFile, "")
         }
 
+        println("3")
+
         val codeFileUrl = s3Util.uploadImage(codeFile)
 
+        println("4")
+
         project.updateCodeFile(codeFileUrl)
+        println("5")
     }
 }

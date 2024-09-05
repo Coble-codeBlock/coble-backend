@@ -5,12 +5,15 @@ import com.example.coblebackend.domain.user.presentation.dto.request.UserSignUpR
 import com.example.coblebackend.domain.user.presentation.dto.request.VerifyEmailCodeRequest
 import com.example.coblebackend.domain.user.presentation.dto.request.VerifyEmailRequest
 import com.example.coblebackend.domain.user.presentation.dto.response.TokenResponse
+import com.example.coblebackend.domain.user.presentation.dto.response.UserInfoResponse
 import com.example.coblebackend.domain.user.service.CheckVerifyEmailCodeService
+import com.example.coblebackend.domain.user.service.GetUserInfoService
 import com.example.coblebackend.domain.user.service.UserRefreshTokenService
 import com.example.coblebackend.domain.user.service.UserSignInService
 import com.example.coblebackend.domain.user.service.UserSignUpService
 import com.example.coblebackend.domain.user.service.VerifyEmailService
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -28,6 +31,7 @@ class UserController(
     private val userSignUpService: UserSignUpService,
     private val userSignInService: UserSignInService,
     private val userRefreshTokenService: UserRefreshTokenService,
+    private val getUserInfoService: GetUserInfoService,
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -59,4 +63,10 @@ class UserController(
     fun userRefreshToken(@RequestHeader("Authorization") refreshToken: String): TokenResponse {
         return userRefreshTokenService.execute(refreshToken)
     }
+
+     @ResponseStatus(HttpStatus.OK)
+     @GetMapping("/info")
+     fun getUserInfo(): UserInfoResponse {
+         return getUserInfoService.execute()
+     }
 }

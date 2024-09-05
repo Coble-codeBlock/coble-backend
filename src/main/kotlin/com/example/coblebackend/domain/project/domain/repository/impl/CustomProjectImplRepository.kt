@@ -3,6 +3,8 @@ package com.example.coblebackend.domain.project.domain.repository.impl
 import com.example.coblebackend.domain.like.domain.QLike
 import com.example.coblebackend.domain.project.domain.Project
 import com.example.coblebackend.domain.project.domain.QProject
+import com.example.coblebackend.domain.user.domain.User
+import com.example.coblebackend.domain.user.presentation.dto.response.UserProjectListElement
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -33,5 +35,40 @@ class CustomProjectImplRepository(
         return PageImpl(results, pageable, totalResults)
     }
 
-}
+    override fun findUserLikeProjectList(user: User): List<UserProjectListElement> {
+        val qProject = QProject.project
+        val qLike = QLike.like
 
+        val projects = queryFactory
+            .selectFrom(qProject)
+            .leftJoin(qLike).on(qLike.project().id.eq(qProject.id))
+            .groupBy(qProject.id)
+            .orderBy(qLike.count().desc())
+            .fetch()
+
+        val userProjectList = projects.map { project ->
+            val likeStatusQuery = queryFactory
+                .selectOne()
+                .from(qLike)
+                .where(
+                    qLike.user().id.eq(user.id)
+                        .and(qLike.project().id.eq(project.id))
+                )
+                .fetchFirst()
+
+            val likeStatus = likeStatusQuery != null
+
+            UserProjectListElement(
+                id = project.id,
+                image = project.image,
+                profile = user.profile,
+                title = project.title,
+                description = project.description,
+                likeStatus = likeStatus
+            )
+        }
+
+        return userProjectList
+    }
+
+}
