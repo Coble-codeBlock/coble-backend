@@ -1,5 +1,6 @@
 package com.example.coblebackend.domain.user.presentation
 
+import com.example.coblebackend.domain.user.presentation.dto.request.DeleteUserRequest
 import com.example.coblebackend.domain.user.presentation.dto.request.UserSignInRequest
 import com.example.coblebackend.domain.user.presentation.dto.request.UserSignUpRequest
 import com.example.coblebackend.domain.user.presentation.dto.request.VerifyEmailCodeRequest
@@ -75,7 +76,7 @@ class UserController(
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
-    fun deleteUser() {
-        deleteUserService.execute()
+    fun deleteUser(@RequestBody request: DeleteUserRequest) {
+        deleteUserService.execute(request)
     }
 }
