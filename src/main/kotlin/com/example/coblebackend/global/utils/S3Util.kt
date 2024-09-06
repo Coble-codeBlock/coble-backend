@@ -33,7 +33,7 @@ class S3Util(
 
     fun getS3ObjectUrl(path: String): String {
         val formattedPath = if (path.startsWith("/")) path.substring(1) else path
-        return "${s3Properties.url}/$formattedPath"
+        return "${s3Properties.url}$formattedPath"
     }
 
 
