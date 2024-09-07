@@ -83,7 +83,7 @@ class UserController(
      }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping
+    @PostMapping
     fun deleteUser(@RequestBody request: DeleteUserRequest) {
         deleteUserService.execute(request)
     }
