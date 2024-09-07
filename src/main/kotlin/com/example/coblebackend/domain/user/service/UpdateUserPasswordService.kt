@@ -1,5 +1,6 @@
 package com.example.coblebackend.domain.user.service
 
+import com.example.coblebackend.domain.user.exception.PasswordMismatchedException
 import com.example.coblebackend.domain.user.facade.UserFacade
 import com.example.coblebackend.domain.user.presentation.dto.request.UpdatePasswordRequest
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -16,10 +17,10 @@ class UpdateUserPasswordService(
     fun execute(request: UpdatePasswordRequest) {
         val user = userFacade.getCurrentUser()
 
-        userFacade.checkPasswordMatch(
-            password = user.password,
-            requestPassword = request.newPassword,
-        )
+        val checkPasswordMatch = passwordEncoder.matches(user.password, request.password)
+
+        if (!checkPasswordMatch)
+            throw PasswordMismatchedException
 
         user.updatePassword(passwordEncoder.encode(request.newPassword))
     }
