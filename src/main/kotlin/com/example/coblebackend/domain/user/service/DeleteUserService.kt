@@ -25,10 +25,10 @@ class DeleteUserService(
     fun execute(request: DeleteUserRequest) {
         val user = userFacade.getCurrentUser()
 
-        val checkPasswordMatch = passwordEncoder.matches(request.password, user.password)
-
-        if (!checkPasswordMatch)
-            throw PasswordMismatchedException
+        userFacade.checkPasswordMatch(
+            password = user.password,
+            requestPassword = request.password,
+        )
 
         projectRepository.deleteAllByUserId(user.id)
         likeRepository.deleteAllByUserId(user.id)

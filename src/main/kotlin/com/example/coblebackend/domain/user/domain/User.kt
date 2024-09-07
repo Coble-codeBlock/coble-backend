@@ -21,7 +21,7 @@ class User (
     @field:NotNull
     @field:Length(max = 60)
     @Column(nullable = false)
-    val password: String,
+    var password: String,
 
     @field:NotNull
     @field:Email
@@ -38,5 +38,9 @@ class User (
     fun updateUserInfo(profile: String, nickname: String) {
         this.profile = profile
         this.nickname = nickname
+    }
+
+    fun updatePassword(password: String) {
+        this.password = password
     }
 }

@@ -1,14 +1,18 @@
 package com.example.coblebackend.domain.user.facade
 
+import com.example.coblebackend.domain.user.domain.QUser.user
 import com.example.coblebackend.domain.user.domain.User
 import com.example.coblebackend.domain.user.domain.repository.UserRepository
+import com.example.coblebackend.domain.user.exception.PasswordMismatchedException
 import com.example.coblebackend.domain.user.exception.UserNotFoundException
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
 class UserFacade(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder,
 ) {
 
     fun getUserById(userId: Long): User {
@@ -28,5 +32,12 @@ class UserFacade(
 
     fun getUserByEmail(email: String): User {
         return userRepository.findByEmail(email) ?: throw UserNotFoundException
+    }
+
+    fun checkPasswordMatch(password: String, requestPassword: String) {
+        val checkPasswordMatch = passwordEncoder.matches(password, requestPassword)
+
+        if (!checkPasswordMatch)
+            throw PasswordMismatchedException
     }
 }
