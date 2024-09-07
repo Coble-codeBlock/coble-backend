@@ -19,6 +19,7 @@ class GetQuizAnswerListService(
         val quizAnswerElementList = customQuizRepository.getQuizAnswerList(quizTitleId)
 
         return GetQuizAnswerListResponse(
+            quizTitle = quizTitle.title,
             quizType = quizTitle.quizType,
             quizList = quizAnswerElementList
         )
