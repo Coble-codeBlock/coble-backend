@@ -6,4 +6,6 @@ data class GetProjectDetailResponse(
     val description: String,
     val nickName: String,
     val profile: String,
+    val likeStatus: Boolean,
+    val likeCount: Long,
 )

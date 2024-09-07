@@ -10,4 +10,5 @@ interface LikeRepository: CrudRepository<Like, Long> {
     fun existsByUserIdAndProjectId(userId: Long, projectId: Long): Boolean
     fun deleteAllByUserId(userId: Long)
     fun deleteAllByProjectId(projectId: Long)
+    fun countAllByProjectId(projectId: Long): Long
 }
