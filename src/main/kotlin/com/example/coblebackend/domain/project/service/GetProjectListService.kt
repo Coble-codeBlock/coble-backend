@@ -7,6 +7,7 @@ import com.example.coblebackend.domain.project.presentation.dto.response.GetProj
 import com.example.coblebackend.domain.project.presentation.dto.response.GetProjectListResponse
 import com.example.coblebackend.domain.user.domain.User
 import com.example.coblebackend.domain.user.facade.UserFacade
+import com.example.coblebackend.global.utils.S3Util
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,6 +17,7 @@ class GetProjectListService(
     private val customProjectRepository: CustomProjectRepository,
     private val likeRepository: LikeRepository,
     private val userFacade: UserFacade,
+    private val s3Util: S3Util,
 ) {
 
     @Transactional(readOnly = true)
@@ -24,12 +26,14 @@ class GetProjectListService(
         val projectsPage = customProjectRepository.findProjectList(pageable)
         val content = projectsPage.content.map { project ->
             val likeStatus = likeRepository.existsByUserIdAndProjectId(user.id, project.id)
+            val imageUrl = s3Util.getS3ObjectUrl(project.image)
+            val profileUrl = s3Util.getS3ObjectUrl(project.user.profile)
 
             val isMine = project.user == user
             GetProjectListElement(
                 id = project.id,
-                image = project.image,
-                profile = project.user.profile,
+                image = imageUrl,
+                profile = profileUrl,
                 title = project.title,
                 description = project.description,
                 likeStatus = likeStatus,
