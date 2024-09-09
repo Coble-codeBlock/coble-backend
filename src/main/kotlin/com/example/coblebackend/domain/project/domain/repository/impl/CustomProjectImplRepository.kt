@@ -42,26 +42,25 @@ class CustomProjectImplRepository(
         val qLike = QLike.like
 
         val projects = queryFactory
-            .selectFrom(qProject)
-            .leftJoin(qLike).on(qLike.project().id.eq(qProject.id))
+            .select(qProject)
+            .from(qProject)
+            .innerJoin(qLike).on(qLike.project().id.eq(qProject.id))
+            .where(qLike.user().id.eq(user.id))
             .groupBy(qProject.id)
             .orderBy(qLike.count().desc())
             .fetch()
 
         val userProjectList = projects.map { project ->
-            val likeStatusQuery = queryFactory
+            val likeStatus = queryFactory
                 .selectOne()
                 .from(qLike)
                 .where(
                     qLike.user().id.eq(user.id)
                         .and(qLike.project().id.eq(project.id))
                 )
-                .fetchFirst()
-
-            val likeStatus = likeStatusQuery != null
+                .fetchFirst() != null
 
             val imageUrl = s3Util.getS3ObjectUrl(project.image)
-
 
             UserProjectListElement(
                 id = project.id,
@@ -75,5 +74,4 @@ class CustomProjectImplRepository(
 
         return userProjectList
     }
-
 }
