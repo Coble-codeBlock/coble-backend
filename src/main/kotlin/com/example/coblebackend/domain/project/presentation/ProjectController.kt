@@ -75,11 +75,11 @@ class ProjectController(
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/share")
+    @PatchMapping("/share/{project-id}")
     fun updateProjectShare(
-        @RequestBody request: UpdateProjectShareRequest
+        @PathVariable(name = "project-id") projectId: Long,
     ) {
-        updateProjectShareService.execute(request)
+        updateProjectShareService.execute(projectId)
     }
 
     @ResponseStatus(HttpStatus.OK)

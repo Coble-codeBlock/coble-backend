@@ -13,15 +13,15 @@ class UpdateProjectShareService(
 ) {
 
     @Transactional
-    fun execute(request: UpdateProjectShareRequest) {
+    fun execute(projectId: Long) {
         val user = userFacade.getCurrentUser()
-        val project = projectFacade.getProjectById(request.projectId)
+        val project = projectFacade.getProjectById(projectId)
 
         projectFacade.checkProjectCreateUser(
             createUserId = project.user.id,
             requestUserId = user.id,
         )
 
-        project.updateShareStatus(request.isShare)
+        project.updateShareStatus(!project.isShare)
     }
 }
