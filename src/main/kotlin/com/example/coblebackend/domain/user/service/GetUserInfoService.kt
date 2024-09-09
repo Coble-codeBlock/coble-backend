@@ -28,12 +28,11 @@ class GetUserInfoService(
         val userCreateProjectList = projectList.map { project ->
             val likeStatus = likeRepository.existsByUserIdAndProjectId(user.id, project.id)
             val imageUrl = s3Util.getS3ObjectUrl(project.image)
-            val profileUrl = s3Util.getS3ObjectUrl(project.user.profile)
 
             UserProjectListElement(
                 id = project.id,
                 image = imageUrl,
-                profile = profileUrl,
+                profile = project.user.profile,
                 title = project.title,
                 description = project.description,
                 likeStatus = likeStatus,
