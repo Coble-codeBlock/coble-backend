@@ -17,7 +17,7 @@ class UpdateUserPasswordService(
     fun execute(request: UpdatePasswordRequest) {
         val user = userFacade.getCurrentUser()
 
-        val checkPasswordMatch = passwordEncoder.matches(user.password, request.password)
+        val checkPasswordMatch = passwordEncoder.matches(request.password, user.password)
 
         if (!checkPasswordMatch)
             throw PasswordMismatchedException
