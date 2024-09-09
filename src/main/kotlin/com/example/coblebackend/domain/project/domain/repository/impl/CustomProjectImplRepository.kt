@@ -25,6 +25,7 @@ class CustomProjectImplRepository(
         val query = queryFactory
             .selectFrom(qProject)
             .leftJoin(qLike).on(qLike.project().id.eq(qProject.id))
+            .where(qProject.isShare.eq(true))
             .groupBy(qProject.id)
             .orderBy(qLike.count().desc())
 
