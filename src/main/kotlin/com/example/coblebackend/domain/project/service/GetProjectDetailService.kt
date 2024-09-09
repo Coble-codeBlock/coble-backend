@@ -32,6 +32,7 @@ class GetProjectDetailService(
             profile = user.profile,
             likeStatus = likeStatus,
             likeCount = likeCount,
+            shareStatus = project.isShare,
         )
     }
 }

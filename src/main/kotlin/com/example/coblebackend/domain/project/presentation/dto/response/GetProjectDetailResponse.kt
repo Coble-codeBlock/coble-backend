@@ -8,4 +8,5 @@ data class GetProjectDetailResponse(
     val profile: String,
     val likeStatus: Boolean,
     val likeCount: Long,
+    val shareStatus: Boolean,
 )
