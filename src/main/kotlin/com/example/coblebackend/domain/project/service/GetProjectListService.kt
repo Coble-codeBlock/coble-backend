@@ -22,13 +22,24 @@ class GetProjectListService(
 
     @Transactional(readOnly = true)
     fun execute(pageable: Pageable): GetProjectListResponse {
-        val user = userFacade.getCurrentUser()
+        val isUserPresent = userFacade.isAuthenticated()
+
+        val currentUser = userFacade.let {
+            if (isUserPresent) it.getCurrentUser() else null
+        }
+
+        // 프로젝트 리스트 조회
         val projectsPage = customProjectRepository.findProjectList(pageable)
+
+        // 프로젝트 리스트 맵핑
         val content = projectsPage.content.map { project ->
-            val likeStatus = likeRepository.existsByUserIdAndProjectId(user.id, project.id)
+            val likeStatus = currentUser?.let { user ->
+                likeRepository.existsByUserIdAndProjectId(user.id, project.id)
+            } ?: false
+
             val imageUrl = s3Util.getS3ObjectUrl(project.image)
 
-            val isMine = project.user == user
+            val isMine = isUserPresent && project.user == currentUser
             GetProjectListElement(
                 id = project.id,
                 image = imageUrl,
@@ -39,6 +50,7 @@ class GetProjectListService(
                 isMine = isMine
             )
         }
+
         return GetProjectListResponse(
             projectList = content,
             totalElements = projectsPage.totalElements,
@@ -48,4 +60,5 @@ class GetProjectListService(
             totalPages = projectsPage.totalPages
         )
     }
+
 }

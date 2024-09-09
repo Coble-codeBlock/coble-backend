@@ -5,6 +5,7 @@ import com.example.coblebackend.domain.user.domain.User
 import com.example.coblebackend.domain.user.domain.repository.UserRepository
 import com.example.coblebackend.domain.user.exception.PasswordMismatchedException
 import com.example.coblebackend.domain.user.exception.UserNotFoundException
+import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
@@ -32,4 +33,9 @@ class UserFacade(
     fun getUserByEmail(email: String): User {
         return userRepository.findByEmail(email) ?: throw UserNotFoundException
     }
+
+    fun isAuthenticated(): Boolean {
+        return SecurityContextHolder.getContext().authentication?.isAuthenticated ?: false
+    }
+
 }
