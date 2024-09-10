@@ -62,8 +62,8 @@ class SaveQuizService(
                     ))
 
                     answerRepository.save(Answer(
-                        answerNumber = quizElement.answerNumber,
-                        oxAnswer = false,
+                        answerNumber = 0,
+                        oxAnswer = quizElement.oxAnswer,
                         quiz = quiz,
                     ))
                 }
