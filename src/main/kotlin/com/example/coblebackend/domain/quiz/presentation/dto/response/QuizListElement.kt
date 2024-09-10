@@ -7,5 +7,4 @@ data class QuizListElement (
     val title: String,
     val quizStatus: Boolean,
     val quizType: QuizType,
-
 )
