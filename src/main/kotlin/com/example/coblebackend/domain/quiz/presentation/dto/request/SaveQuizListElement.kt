@@ -4,4 +4,5 @@ data class SaveQuizListElement(
     val content: String,
     val answerNumber: Int,
     val oxAnswer: Boolean,
+    val optionList: List<OptionListElement>,
 )

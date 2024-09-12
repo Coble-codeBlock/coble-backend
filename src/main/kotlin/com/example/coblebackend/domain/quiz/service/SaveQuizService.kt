@@ -44,7 +44,7 @@ class SaveQuizService(
                         quiz = quiz,
                     ))
 
-                    request.optionList.map { option ->
+                    quizElement.optionList.map { option ->
                         optionRepository.save(Option(
                             quiz = quiz,
                             number = option.number,
