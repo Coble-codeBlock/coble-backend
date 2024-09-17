@@ -2,9 +2,7 @@ package com.example.coblebackend.domain.quiz.domain.repository.impl.quizTitle
 
 import com.example.coblebackend.domain.quiz.domain.QAnswer
 import com.example.coblebackend.domain.quiz.domain.QOption
-import com.example.coblebackend.domain.quiz.domain.QOption.option
 import com.example.coblebackend.domain.quiz.domain.QQuiz
-import com.example.coblebackend.domain.quiz.domain.QQuiz.quiz
 import com.example.coblebackend.domain.quiz.domain.QQuizTitle
 import com.example.coblebackend.domain.quiz.domain.QUserAnswer
 import com.example.coblebackend.domain.quiz.domain.Quiz

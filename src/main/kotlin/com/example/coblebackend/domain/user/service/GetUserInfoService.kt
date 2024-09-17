@@ -24,15 +24,17 @@ class GetUserInfoService(
         val user = userFacade.getCurrentUser()
         val projectList = projectRepository.findAllByUserId(user.id)
         val userLikeProjectList = customProjectRepository.findUserLikeProjectList(user)
+        val profileUrl = s3Util.getS3ObjectUrl(user.profile)
 
         val userCreateProjectList = projectList.map { project ->
             val likeStatus = likeRepository.existsByUserIdAndProjectId(user.id, project.id)
             val imageUrl = s3Util.getS3ObjectUrl(project.image)
+            val profileUrl = s3Util.getS3ObjectUrl(project.user.profile)
 
             UserProjectListElement(
                 id = project.id,
                 image = imageUrl,
-                profile = project.user.profile,
+                profile = profileUrl,
                 title = project.title,
                 description = project.description,
                 likeStatus = likeStatus,
@@ -40,7 +42,7 @@ class GetUserInfoService(
         }
 
         return UserInfoResponse(
-            profile = user.profile,
+            profile = profileUrl,
             nickname = user.nickname,
             email = user.email,
             myCreateProjectList = userCreateProjectList,

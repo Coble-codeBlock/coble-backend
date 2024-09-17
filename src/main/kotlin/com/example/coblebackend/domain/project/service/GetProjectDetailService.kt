@@ -19,17 +19,18 @@ class GetProjectDetailService(
     @Transactional(readOnly = true)
     fun execute(projectId: Long): GetProjectDetailResponse {
         val project = projectFacade.getProjectById(projectId)
-        val projectUrl = s3Util.getS3ObjectUrl(project.codeFile)
         val user = userFacade.getUserById(project.user.id)
         val likeStatus = likeRepository.existsByUserIdAndProjectId(user.id, project.id)
         val likeCount = likeRepository.countAllByProjectId(project.id)
+        val projectUrl = s3Util.getS3ObjectUrl(project.codeFile)
+        val profileUrl = s3Util.getS3ObjectUrl(user.profile)
 
         return GetProjectDetailResponse(
             projectUrl = projectUrl,
             title = project.title,
             description = project.description,
             nickName = user.nickname,
-            profile = user.profile,
+            profile = profileUrl,
             likeStatus = likeStatus,
             likeCount = likeCount,
             shareStatus = project.isShare,

@@ -62,11 +62,12 @@ class CustomProjectImplRepository(
                 .fetchFirst() != null
 
             val imageUrl = s3Util.getS3ObjectUrl(project.image)
+            val profileUrl = s3Util.getS3ObjectUrl(user.profile)
 
             UserProjectListElement(
                 id = project.id,
                 image = imageUrl,
-                profile = user.profile,
+                profile = profileUrl,
                 title = project.title,
                 description = project.description,
                 likeStatus = likeStatus

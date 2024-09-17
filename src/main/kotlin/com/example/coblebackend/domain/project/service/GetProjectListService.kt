@@ -28,22 +28,21 @@ class GetProjectListService(
             if (isUserPresent) it.getCurrentUser() else null
         }
 
-        // 프로젝트 리스트 조회
         val projectsPage = customProjectRepository.findProjectList(pageable)
 
-        // 프로젝트 리스트 맵핑
         val content = projectsPage.content.map { project ->
             val likeStatus = currentUser?.let { user ->
                 likeRepository.existsByUserIdAndProjectId(user.id, project.id)
             } ?: false
 
             val imageUrl = s3Util.getS3ObjectUrl(project.image)
+            val profileUrl = s3Util.getS3ObjectUrl(project.user.profile)
 
             val isMine = isUserPresent && project.user == currentUser
             GetProjectListElement(
                 id = project.id,
                 image = imageUrl,
-                profile = project.user.profile,
+                profile = profileUrl,
                 title = project.title,
                 description = project.description,
                 likeStatus = likeStatus,
