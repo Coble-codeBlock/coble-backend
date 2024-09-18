@@ -32,6 +32,7 @@ class CustomProjectImplRepository(
 
         val totalResults = query.fetchCount()
         val results = query
+            .orderBy(qLike.count().desc())
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .fetch()
