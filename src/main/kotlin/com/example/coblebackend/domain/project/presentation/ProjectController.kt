@@ -87,6 +87,7 @@ class ProjectController(
     fun getProjectDetail(
         @PathVariable(name = "project-id") projectId: Long,
     ): GetProjectDetailResponse {
+        // TODO 좋아요 누른 여부 제대로 되는지 확인
         return getProjectDetailService.execute(projectId)
     }
 
@@ -95,6 +96,7 @@ class ProjectController(
     fun getProjectList(
         pageable: Pageable
     ): GetProjectListResponse {
+        // TODO 좋아요 순, 날짜 순으로 정렬되는지 확인
         return getProjectListService.execute(pageable)
     }
 

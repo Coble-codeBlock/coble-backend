@@ -19,6 +19,7 @@ class CustomProjectImplRepository(
 ) : CustomProjectRepository {
 
     override fun findProjectList(pageable: Pageable): Page<Project> {
+
         val qProject = QProject.project
         val qLike = QLike.like
 

@@ -28,9 +28,8 @@ class VerifyEmailService(
         val verifyCode = createVerifyCode()
 
         val title = "[Coble] 이메일 인증 코드"
-        val content = "인증 번호는 " + verifyCode + "입니다."
 
-        mailUtil.mailSend(username, request.email, title, content, verifyCode)
+        mailUtil.mailSend(username, request.email, title, verifyCode)
     }
 
     private fun createVerifyCode(): String {

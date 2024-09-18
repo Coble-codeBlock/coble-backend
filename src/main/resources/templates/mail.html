@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coble</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard';
+        }
+        body {
+            text-align: center;
+        }
+        .logo {
+            width: 70px;
+            height: 70px;
+            margin: 0px auto 16px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAiIGhlaWdodD0iNzAiIHZpZXdCb3g9IjAgMCA3MCA3MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIxLjAxMTkgNzBDMTQuNTI2OCA3MCA5LjQwMzQ4IDYyLjE3MjUgNS42NDIwOSA1OC41OTA1QzEuODgwNyA1NS4wMDg2IDAgNTAuMDgzNCAwIDQzLjgxNVYyMC4xNDg1QzAgMTMuODgwMSAxLjg4MDcgOC45NTQ4OCA1LjY0MjA5IDUuMzcyOTNDOS40MDM0OCAxLjc5MDk4IDE0LjUyNjggMCAyMS4wMTE5IDBDMjcuMzY3NCAwIDMyLjQyNTggMS44MjI5NiAzNi4xODcyIDUuNDY4ODdDMzkuMTA0MyA4LjI0Njc5IDQwLjI5MTIgMTEuODEzMyA0MC42NzcxIDE2LjE2ODZDNDAuODcxMiAxOC4zNjAxIDM5LjA0OTggMjAuMTQ4NSAzNi44NDk2IDIwLjE0ODVDMzQuNjQ5NCAyMC4xNDg1IDMyLjk1MDEgMTguMzQyIDMyLjUwMzUgMTYuMTg3NkMzMi4wNjk1IDE0LjA5NDQgMzEuMjI1NSAxMi4zNzY0IDI5Ljg2NDIgMTEuMDMzN0MyNy43ODg5IDguODU4OTQgMjQuODM4MiA3Ljc3MTU2IDIxLjAxMTkgNy43NzE1NkMxNy4xODU3IDcuNzcxNTYgMTQuMTcwMSA4Ljg1ODk0IDExLjk2NTEgMTEuMDMzN0M5LjgyNTAxIDEzLjE0NDUgOC43NTQ5NiAxNi4xODI3IDguNzU0OTYgMjAuMTQ4NVY0My44MTVDOC43NTQ5NiA0Ny43ODA3IDkuODI1MDEgNTAuODUwOSAxMS45NjUxIDUzLjAyNTdDMTQuMTcwMSA1NS4xMzY1IDE3LjE4NTcgNTYuMTkxOSAyMS4wMTE5IDU2LjE5MTlDMjQuODM4MiA1Ni4xOTE5IDI3Ljc4ODkgNTUuMTM2NSAyOS44NjQyIDUzLjAyNTdDMzIuMDA0MyA1MC44NTA5IDMyLjg2NTkgNDYuOTY1NyAzMi44NjU5IDQzTDMyLjg2NTkgNDMuMjMyM0MzNy44ODE5IDQzLjU2NDEgNDAuMTg5NSA0Ni4wNzQ4IDM5Ljc2NjIgNDkuMDEzOEMzOS4yMDg2IDUyLjg4NDcgMzcuOTU2MiA1Ni4xODUxIDM1Ljg1MzcgNTlDMzIuMDkyMyA2Mi41ODIgMjcuMzY3NCA3MCAyMS4wMTE5IDcwWiIgZmlsbD0iIzAwMTRDOCIvPjxwYXRoIGQ9Ik01MC4yNjc3IDcwQzQ0LjI3NTQgNzAgMzkuODI0NCA2MS45NDIzIDM2LjMzOTEgNTguMTY2MUMzMi44NTM4IDU0LjM4OTggMzEuMTExMSA0OC45OTA0IDMxLjExMTEgNDEuOTY3OVY0My4yNTE1QzMxLjExMTEgMzYuMjI4OSAzMi44NTM4IDMwLjgyOTUgMzYuMzM5MSAyNy4wNTMzQzM5LjgyNDQgMjMuMjc3IDQ0LjU2MzIgMjEuMzg4OSA1MC41NTU2IDIxLjM4ODlDNTYuNTQ3OSAyMS4zODg5IDYxLjI4NjcgMjMuMjc3IDY0Ljc3MiAyNy4wNTMzQzY4LjI1NzMgMzAuODI5NSA3MCAzNi4xOTU4IDcwIDQzLjE1MjFWNDEuOTY3OUM3MCA0OC45OTA0IDY4LjI1NzMgNTQuMzg5OCA2NC43NzIgNTguMTY2MUM2MS4yODY3IDYxLjk0MjMgNTYuMjYwMSA3MCA1MC4yNjc3IDcwWk01MC41NTU2IDU1Ljc4MUM1NC4xNjMyIDU1Ljc4MSA1Ni45MTQ3IDU0LjY4NzkgNTguODEwMyA1Mi41MDE3QzYwLjc2NjkgNTAuMjQ5MiA2MS43NDUzIDQ3LjA2OTEgNjEuNzQ1MyA0Mi45NjE2VjQyLjI1NzdDNjEuNzQ1MyAzOC4xNTAyIDYwLjc2NjkgMzUuMDAzMyA1OC44MTAzIDMyLjgxNzFDNTYuOTE0NyAzMC41NjQ1IDU0LjE2MzIgMjkuNDM4MyA1MC41NTU2IDI5LjQzODNDNDcuMDA5MSAyOS40MzgzIDQ0LjI1NzUgMzAuNTY0NSA0Mi4zMDA4IDMyLjgxNzFDNDAuMzQ0MiAzNS4wMDMzIDM5LjM2NTggMzguMTUwMiAzOS4zNjU4IDQyLjI1NzdWNDIuOTYxNkMzOS4zNjU4IDQ3LjA2OTEgNDAuMzQ0MiA1MC4yNDkyIDQyLjMwMDggNTIuNTAxN0M0NC4yNTc1IDU0LjY4NzkgNDcuMDA5MSA1NS43ODEgNTAuNTU1NiA1NS43ODFaIiBmaWxsPSIjMDAxNEM4Ii8+Cjwvc3ZnPgo=');
+            background-repeat: no-repeat;
+        }
+        h1 {
+            margin-bottom: 36px;
+            font-size: 36px;
+            line-height: 54px;
+        }
+        span {
+            font-size: 36px;
+            line-height: 80px;
+            color: #0010a0;
+        }
+        span + span {
+            margin-left: 36px;
+        }
+        .container {
+            width: 700px;
+            height: 700px;
+            margin: 120px 0px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 24px;
+        }
+        .description {
+            color: #707070;
+            margin-bottom: 16px;
+        }
+        .description2 {
+            color: #222222;
+            margin-bottom: 36px;
+        }
+        .number {
+            width: 400px;
+            height: 80px;
+            background-color: #f1f2ff;
+            border-radius: 16px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="logo"></div>
+    <h1>
+        COBLE 가입을 위한<br />
+        인증번호입니다.
+    </h1>
+    <p class="description">
+        요청하신 COBLE 가입 이메일 인증번호를 알려드립니다.<br />이메일인증은
+        허위정보 입력 및 잘못된 정보 기재로 인해 이메일 도용과 피해를
+        방지하고<br />
+        회원정보에 입력된 이메일 주소가 정확한지 확인하기 위한 절차입니다.
+    </p>
+    <p class="description2">
+        아래 이메일 인증번호를 복사하여 인증확인 받으시기 바랍니다.
+    </p>
+    <div class="number">
+        <span>1</span>
+        <span>1</span>
+        <span>1</span>
+        <span>1</span>
+    </div>
+</div>
+</body>
+</html>
