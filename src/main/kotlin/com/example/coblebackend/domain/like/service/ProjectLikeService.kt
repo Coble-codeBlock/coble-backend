@@ -25,21 +25,26 @@ class ProjectLikeService(
         val project = projectFacade.getProjectById(projectId)
         val user = userFacade.getCurrentUser()
 
+        println(project)
+        println(user)
+
         if(user.id == project.user.id)
             throw SelfProjectLikeNotAllowedException
 
         val checkExistAlreadyUserLikeProject = likeFacade.existLikeByUserIdAndProjectId(user.id, project.id)
+        println(checkExistAlreadyUserLikeProject)
 
         if(checkExistAlreadyUserLikeProject) {
             val like = likeFacade.getLikeByUserIdAndProjectId(user.id, project.id)
+            println(like.id)
             likeRepository.deleteById(like.id)
-        }
-
-        likeRepository.save(
-            Like(
-                user = user,
-                project = project,
+        } else {
+            likeRepository.save(
+                Like(
+                    user = user,
+                    project = project,
+                )
             )
-        )
+        }
     }
 }
