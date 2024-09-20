@@ -24,8 +24,7 @@ class DeleteUserService(
     @Transactional
     fun execute(request: DeleteUserRequest) {
         val user = userFacade.getCurrentUser()
-
-        val checkPasswordMatch = passwordEncoder.matches(user.password, request.password)
+        val checkPasswordMatch = passwordEncoder.matches(request.password, user.password)
 
         if (!checkPasswordMatch)
             throw PasswordMismatchedException
