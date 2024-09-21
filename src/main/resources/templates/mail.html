@@ -10,9 +10,7 @@
             padding: 0;
             font-family: 'Pretendard';
         }
-        body {
-            text-align: center;
-        }
+
         .logo {
             width: 70px;
             height: 70px;
@@ -21,9 +19,12 @@
             background-repeat: no-repeat;
         }
         h1 {
+            margin: auto;
             margin-bottom: 36px;
             font-size: 36px;
             line-height: 54px;
+            width: fit-content;
+            text-align: center;
         }
         span {
             font-size: 36px;
@@ -41,6 +42,9 @@
         p {
             font-size: 16px;
             line-height: 24px;
+            margin: auto;
+            width: fit-content;
+            text-align: center;
         }
         .description {
             color: #707070;
@@ -56,6 +60,9 @@
             background-color: #f1f2ff;
             border-radius: 16px;
             margin: auto;
+        }
+        .first {
+            margin-left: 114px;
         }
     </style>
 </head>
@@ -76,10 +83,10 @@
         아래 이메일 인증번호를 복사하여 인증확인 받으시기 바랍니다.
     </p>
     <div class="number">
-        <span>1</span>
-        <span>1</span>
-        <span>1</span>
-        <span>1</span>
+        <span class="first" th:text="${code[0]}">1</span>
+        <span th:text="${code[1]}">1</span>
+        <span th:text="${code[2]}">1</span>
+        <span th:text="${code[3]}">1</span>
     </div>
 </div>
 </body>

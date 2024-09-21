@@ -23,15 +23,15 @@ class MailUtil(
         helper.setFrom(setFrom)
         helper.setTo(toMail)
         helper.setSubject(title)
-        message.setText(setContext(verifyCode), "utf-8", "html");
+        message.setText(setContext(verifyCode), "utf-8", "html")
 
         javaMailSender.send(message)
-        redisUtil.setDataExpire(verifyCode, toMail, 60*5L)
+        redisUtil.setDataExpire(verifyCode, toMail, 60 * 5L)
     }
 
     private fun setContext(code: String): String {
         val context = Context()
-        context.setVariable("code", code)
+        context.setVariable("code", code.toCharArray())
         return templateEngine.process("mail", context)
     }
 }

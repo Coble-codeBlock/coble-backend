@@ -10,22 +10,14 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-    show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
+      show-sql: true
 
   redis:
     port: ${REDIS_PORT}
     host: ${REDIS_HOST}
-
-  main:
-    allow-bean-definition-overriding: true
-
-  jackson:
-    property-naming-strategy: SNAKE_CASE
-    serialization:
-      fail-on-empty-beans: false
 
   mail:
     host: smtp.gmail.com
@@ -41,6 +33,23 @@ spring:
           starttls:
             enable: true
             required: true
+        debug: true
+    default-encoding: UTF-8
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+
+  main:
+    allow-bean-definition-overriding: true
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      fail-on-empty-beans: false
 
 jwt:
   secret_key: ${JWT_SECRET_KEY}
