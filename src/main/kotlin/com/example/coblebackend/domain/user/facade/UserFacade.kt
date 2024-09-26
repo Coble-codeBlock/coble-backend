@@ -5,6 +5,7 @@ import com.example.coblebackend.domain.user.domain.User
 import com.example.coblebackend.domain.user.domain.repository.UserRepository
 import com.example.coblebackend.domain.user.exception.PasswordMismatchedException
 import com.example.coblebackend.domain.user.exception.UserNotFoundException
+import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -35,7 +36,9 @@ class UserFacade(
     }
 
     fun isAuthenticated(): Boolean {
-        return SecurityContextHolder.getContext().authentication?.isAuthenticated ?: false
+        return SecurityContextHolder.getContext().authentication?.let { auth ->
+            auth.isAuthenticated && auth !is AnonymousAuthenticationToken
+        } ?: false
     }
 
 }
