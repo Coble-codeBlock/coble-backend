@@ -11,11 +11,11 @@ interface CustomQuizRepository {
     fun getFilterQuizList(
         userId: Long,
         type: QuizType?,
-        solved: Boolean?,
+        solveStatus: Boolean?,
         pageable: Pageable,
     ): Page<QuizListElement>
 
     fun getQuizAnswerList(
-        quizId: Long,
+        quizTitleId: Long,
     ): List<GetQuizAnswerListElement>
 }

@@ -21,8 +21,17 @@ class GetProjectDetailService(
     fun execute(projectId: Long): GetProjectDetailResponse {
         val project = projectFacade.getProjectById(projectId)
         val creator = userFacade.getUserById(project.user.id)
-        val user = userFacade.getCurrentUser()
-        val likeStatus = likeRepository.existsByUserIdAndProjectId(user.id, project.id)
+
+        val isUserPresent = userFacade.isAuthenticated()
+        val currentUser = userFacade.let {
+            if (isUserPresent) it.getCurrentUser() else null
+        }
+
+        var likeStatus = false
+        if(currentUser != null) {
+            likeStatus = likeRepository.existsByUserIdAndProjectId(currentUser.id, project.id)
+        }
+
         val likeCount = likeRepository.countAllByProjectId(project.id)
         val projectUrl = s3Util.getS3ObjectUrl(project.codeFile)
         val profileUrl = s3Util.getS3ObjectUrl(creator.profile)
